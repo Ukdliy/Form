@@ -1,0 +1,21 @@
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index');
+}
+
+function submitForm(form) {
+  const name = form.name;
+  const email = form.email;
+  const phone = form.phone;
+  const signature = form.signature;
+  
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Form');
+  const newRow = [name, email, phone,signature];
+  
+  sheet.appendRow(newRow);
+}
+function getSignatureImage(id) {
+  const blob = DriveApp.getFileById(id).getBlob();
+  const image = Utilities.base64Encode(blob.getBytes());
+  
+  return `data:image/png;base64,${image}`;
+}
