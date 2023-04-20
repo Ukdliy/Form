@@ -1,0 +1,27 @@
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index');
+}
+
+function submitForm(form) {
+  const name = form.name;
+  const email = form.email;
+  const phone = form.phone;
+  const signature = form.signature;
+
+  // konversi tanda tangan ke gambar PNG
+  const signatureData = signature.replace(/^data:image\/(png|jpg);base64,/, "");
+  const signatureBlob = Utilities.newBlob(Utilities.base64Decode(signatureData), "image/png", "signature.png");
+  
+  // simpan data ke Google Sheets
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Form');
+  const newRow = [name, email, phone, ""];
+  const row = sheet.getLastRow() + 1;
+  sheet.insertRowBefore(row);
+  sheet.getRange(row, 1, 1, 4).setValues([newRow]);
+  sheet.getRange(row, 4).insertCheckboxes();
+  
+  // simpan gambar ke Google Drive
+  const folder = DriveApp.getFolderById("--"); // ganti dengan ID folder Anda
+  const file = folder.createFile(signatureBlob);
+  sheet.getRange(row, 4).setValue(file.getUrl());
+}
