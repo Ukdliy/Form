@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      /* membuat form berada di tengah halaman */
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"] {
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: none;
+        background-color: #fff;
+      }
+
+      input[type="submit"] {
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: none;
+        background-color: #4285f4;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      
+      /* mengatur jarak antar kolom */
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .signature-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .signature-pad {
+        border: 1px solid #c3c3c3;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="myForm">
+      <div class="form-field">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name">
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+      </div>
+
+      <div class="form-field">
+        <label for="phone">Telepon:</label>
+        <input type="tel" id="phone" name="phone">
+      </div>
+
+      <div class="signature-container">
+        <label for="signature">Tanda Tangan:</label>
+        <canvas id="signature-pad" class="signature-pad" width=300 height=200></canvas>
+        <button type="button" id="clear-button">Hapus Tanda Tangan</button>
+        <input type="hidden" id="signature" name="signature">
+      </div>
+      
+      <input type="submit" value="Submit">
+    </form>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+    <script>
+      const form = document.getElementById('myForm');
+      const signaturePad = new SignaturePad(document.getElementById('signature-pad'));
+      const clearButton = document.getElementById('clear-button');
+      const signatureInput = document.getElementById('signature');
+      
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        signatureInput.value = signaturePad.toDataURL();
+        
+        google.script.run.withSuccessHandler(function() {
+          alert('Data berhasil disimpan!');
+          form.reset();
+          signaturePad.clear();
+        }).submitForm(this);
+      });
+      clearButton.addEventListener('click', function(event) {
+        signaturePad.clear();
+        signatureInput.value = '';
+      });
+    </script>
+    <style>
+      .signature-pad {
+        border: 1px solid #c3c3c3;
+      }
+    </style>
+  </body>
+</html>
