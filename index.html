@@ -5,19 +5,16 @@
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <style>
-      /* membuat form berada di tengah halaman */
-      body {
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+      <style>
+        /* membuat form berada di tengah halaman */
+        body {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: auto;
-  
       }
-
       form {
         display: flex;
         flex-direction: column;
@@ -27,12 +24,10 @@
         border-radius: 5px;
         background-color: #f8f8f8;
       }
-
       label {
         display: block;
         margin-bottom: 0.5rem;
       }
-
       input[type="text"],
       input[type="email"],
       input[type="text"] {
@@ -41,7 +36,6 @@
         border: none;
         background-color: #fff;
       }
-
       input[type="submit"] {
         padding: 0.5rem;
         border-radius: 100px;
@@ -51,49 +45,43 @@
         font-weight: bold;
         cursor: pointer;
       }
-
       /* mengatur jarak antar kolom */
       .form-field {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
       }
-
       .signature-container {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
       }
-
       .signature-pad {
         border: 1px solid #c3c3c3;
       }
-    </style>
+      </style>
   </head>
   <body>
     <header>
       <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-		  <img src="image.png" alt="Logo Sekolah" style="height: 100px; width: auto;">
-		  <h2 style="text-align: center;">E-DAFTAR HADIR</h2>
+         <img src="yourImage.png"alt="Logo Sekolah" style="height: 100px; width: auto;">
+         <h2 style="text-align: center;">E-HADIR</h2>
       </div>
-    <form id="myForm">
-      <div class="form-field">
-        <label for="name"><b>Nama</b> <span class="required">*</span></label>
-        <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap Anda" required>
+      <form id="myForm">
+        <div class="form-field">
+          <label for="name"><b>Nama</b><span class="required">*</span></label>
+          <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap Anda" required>
       </div>
-
       <div class="form-field">
-        <label for="email">Email: <span class="required">*</span></label>
+        <label for="email"><b>Email</b><span class="required">*</span></label>
         <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
       </div>
-
       <div class="form-field">
-        <label for="school">Nama Sekolah: <span class="required">*</span></label>
+        <label for="school"><b>Nama Sekolah</b><span class="required">*</span></label>
         <input type="text" id="name" name="school" placeholder="Nama Sekolah Anda" required>
       </div>
-
       <div class="signature-container">
-        <label for="signature">Tanda Tangan:<span class="required">*</span></label>
+        <label for="signature"><b>Tanda Tangan</b><span class="required">*</span></label>
         <canvas
           id="signature-pad"
           class="signature-pad"
@@ -111,8 +99,8 @@
         aria-labelledby="success-modal-label"
         aria-hidden="true"
       >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="success-modal-label">Sukses!</h5>
               <button
@@ -121,7 +109,7 @@
                 data-dismiss="modal"
                 aria-label="Close"
               >
-                <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">Data berhasil disimpan!</div>
@@ -131,15 +119,15 @@
                 class="btn btn-secondary"
                 data-dismiss="modal"
               >
-                OK
+              OK
               </button>
             </div>
           </div>
         </div>
       </div>
       <input type="submit" value="Submit" />
-    </form>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js">
+      </form>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js">
     </script>
     <script>
       const form = document.getElementById("myForm");
@@ -153,7 +141,7 @@
         event.preventDefault();
         signatureInput.value = signaturePad.toDataURL();
 
-        google.script.run
+      google.script.run
           .withSuccessHandler(function () {
             Swal.fire({
               title: "Sukses!",
@@ -167,11 +155,10 @@
           })
           .submitForm(this);
       });
-
       clearButton.addEventListener("click", function (event) {
         signaturePad.clear();
         signatureInput.value = "";
       });
-    </script>
-  </body>
+      </script>
+    </body>
 </html>
